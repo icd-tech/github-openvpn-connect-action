@@ -25231,9 +25231,9 @@ const run = (callback) => {
     fs.writeFileSync("tcv2.key", tlsCryptV2Key, { mode: 0o600 });
   }
 
-  core.info("========== begin configuration ==========");
-  core.info(fs.readFileSync(configFile, "utf8"));
-  core.info("=========== end configuration ===========");
+  // core.info("========== begin configuration ==========");
+  // core.info(fs.readFileSync(configFile, "utf8"));
+  // core.info("=========== end configuration ===========");
 
   // 2. Run openvpn
 
@@ -25242,7 +25242,7 @@ const run = (callback) => {
   const tail = new Tail("openvpn.log");
 
   try {
-    exec(`sudo openvpn --config ${configFile} --daemon --writepid openvpn.pid`);
+    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`);
   } catch (error) {
     core.error(fs.readFileSync("openvpn.log", "utf8"));
     tail.unwatch();
